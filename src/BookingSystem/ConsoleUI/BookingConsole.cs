@@ -76,8 +76,19 @@ public class BookingConsole(BookingService service)
         var startTime = ReadTime("Start time (HH:mm): ");
         var endTime = ReadTime("End time (HH:mm): ");
 
-        Console.Write("Participants: ");
-        var participants = int.Parse(Console.ReadLine() ?? string.Empty);
+        int participants;
+
+        while (true)
+        {
+            Console.Write("participants: ");
+
+            if (int.TryParse(Console.ReadLine(), out participants))
+            {
+                break;
+            }
+
+            Console.WriteLine("Enter a valid number of participants");
+        }
 
         var booking = new Booking
         {
