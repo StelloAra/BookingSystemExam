@@ -104,9 +104,11 @@ public class BookingService(IBookingRepository repository)
         var hasOverlap = repository.GetAll().Any(existing =>
             !existing.IsCancelled &&
             existing.Date == booking.Date &&
-            existing.RoomName.Equals(booking.RoomName, StringComparison.OrdinalIgnoreCase) &&
-            booking.StartTime >= existing.StartTime &&
-            booking.StartTime < existing.EndTime);
+            existing.RoomName.Equals(
+                booking.RoomName, 
+                StringComparison.OrdinalIgnoreCase) &&
+            booking.StartTime < existing.EndTime &&
+            booking.EndTime > existing.StartTime);
 
         if (hasOverlap)
         {
